@@ -1,25 +1,91 @@
 import logo from './logo.svg';
 import './App.css';
+import React, { Component } from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import {
+  Navbar,
+  NavbarToggler,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+   Container, Row, Col
+} from "shards-react";
+
+import About from './About';
+import Home from './Home';
+import Footer from './Footer';
+import Blog from './Blog';
+
+export default class App extends Component {
+
+  render() {
+    return (
+      <Container className="welcome-page">
+        <Row>
+          <Col>
+
+            <BrowserRouter>
+
+              <Navbar className="nav-section" type="light" theme="light" expand="md" sticky>
+                <NavbarBrand href="/Home"><img className="logo" src={logo} alt="Logo" /></NavbarBrand>
+                <NavbarToggler onClick={this.toggleNavbar} />
+
+                  <Nav navbar className="ml-auto">
+
+                    <Nav navbar>
+                      <NavItem>
+                        <NavLink active href="/Home">
+                          Home
+                      </NavLink>
+                      </NavItem>
+
+                      <NavItem>
+                        <NavLink active href="/About">
+                          About
+          </NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <NavLink href="/Blog">
+                          Blog
+          </NavLink>
+                      </NavItem>
+                      <NavItem>
+                        <NavLink active href="/Contact">
+                          Contact
+          </NavLink>
+                      </NavItem>
+                    </Nav>
+                  </Nav>
+
+              </Navbar>
+
+              <Switch>
+                <Route exact path='/About' component={About} />
+                <Route exact path='/Home' component={Home} />
+                <Route exact path='/Blog' component={Blog} />
+                <Route component={Home} />
+              </Switch>
+            </BrowserRouter>
+
+          </Col>
+        </Row>
+
+        <Row>
+          <Col>
+            <Footer></Footer>
+          </Col>
+        </Row>
+      </Container>
+    );
+  }
 }
 
-export default App;
+if (document.getElementById("app")) {
+  ReactDOM.render(<App />, document.getElementById("app"));
+}
+
+
+// finish the depolyming of the name using this here https://medium.com/better-programming/how-to-host-your-react-app-on-github-pages-for-free-919ad201a4cb
